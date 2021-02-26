@@ -1,5 +1,6 @@
 (ns reagent-flowgraph.core
   (:require [reagent.core :as r]
+            [reagent.dom :as rd]
             [clj-tree-layout.core :refer [layout-tree] :as tl]))
 
 (defn merge-dimensions [t dimensions]
@@ -8,7 +9,7 @@
       (update :childs #(mapv (fn [c] (merge-dimensions c dimensions)) %))))
 
 (defn dimension-and-redraw [panel-node-comp internal-nodes-a childs-fn branch-fn]
-  (let [dn (r/dom-node panel-node-comp)
+  (let [dn (rd/dom-node panel-node-comp)
         dom-width (.-offsetWidth dn)
         dom-height (.-offsetHeight dn)
         dom-sizes (reduce (fn [r n]
